@@ -1,28 +1,18 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
-import DataEntryList from "../pages/DataEntry/DataEntryList";
 
 function Index() {
   const navigate = useNavigate();
   return (
-    <div>
-      <Navbar />
-      <div className=" w-full h-screen">
-        <div>
-          <div className="text-sm">Welcome to</div>
-          <div className="text-center text-blue-500">DMS</div>
-
-          <button
-            className="underline text-blue-500"
-            onClick={() => navigate(`/data-entry/form`)}
-          >
-            new{" "}
-          </button>
-        </div>
+    <div className="relative">
+      <div className="shadow-lg sticky top-0 z-10 bg-white">
+        <Navbar />
       </div>
 
-      <DataEntryList />
+      <div className="container mx-auto px-4 py-8 min-h-screen">
+        <Outlet />
+      </div>
     </div>
   );
 }

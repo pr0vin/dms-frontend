@@ -74,7 +74,7 @@ function DataEntryForm() {
   };
 
   return (
-    <div className="p-5 md:w-8/12 mx-auto shadow-xl">
+    <div className="p-5 w-full  md:w-10/12 mx-auto bg-white shadow-xl">
       <div className="mb-5">
         <h2 className="font-bold text-2xl text-amber-500">Data Entry Form</h2>
         <p className="text-sm text-gray-600">Fill the form below</p>

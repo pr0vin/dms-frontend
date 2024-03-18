@@ -9,6 +9,7 @@
     font-style: normal;
     font-weight: 400;
     font-variation-settings: "wdth" 100;
+    background-color: rgba(240, 248, 255, 0.178);
   }
   *::-webkit-scrollbar {
     width: 2px;
@@ -35,10 +36,10 @@
   }
 
   .link {
-    @apply p-2 flex  gap-6 items-center hover:bg-gray-100    md:cursor-pointer cursor-default duration-300 font-medium;
+    @apply p-2 flex  gap-6 items-center hover:bg-gray-100 text-gray-700   md:cursor-pointer cursor-default duration-300 font-medium;
   }
   .active {
-    @apply bg-gray-100 text-blue-500;
+    @apply text-amber-600;
   }
 }
 @tailwind utilities;
