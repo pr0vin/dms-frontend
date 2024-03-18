@@ -1,3 +1,44 @@
 @tailwind base;
+@layer base {
+  #root {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Noto Sans Devanagari", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 400;
+    font-variation-settings: "wdth" 100;
+  }
+  *::-webkit-scrollbar {
+    width: 2px;
+  }
+}
 @tailwind components;
+
+@layer components {
+  .myInput {
+    @apply w-full text-sm   border-b-2 border-gray-400 outline-none  focus:border-amber-500;
+  }
+  .myLabel {
+    @apply block  text-gray-300 text-xs  mb-2;
+  }
+  .myButton {
+    @apply flex-shrink-0  rounded bg-amber-600 hover:bg-black text-sm focus:outline-none text-white py-2 px-8;
+  }
+  .myButtonOutline {
+    @apply flex-shrink-0 py-2 px-8  rounded bg-gray-50   border-gray-300  text-xs border  hover:bg-gray-200;
+  }
+
+  .mySelect {
+    @apply block w-full   py-2 mt-2 bg-white border-b-2 border-gray-400 focus:border-amber-500   focus:outline-none;
+  }
+
+  .link {
+    @apply p-2 flex  gap-6 items-center hover:bg-gray-100    md:cursor-pointer cursor-default duration-300 font-medium;
+  }
+  .active {
+    @apply bg-gray-100 text-blue-500  border-l-4 border-blue-500;
+  }
+}
 @tailwind utilities;

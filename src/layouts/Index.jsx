@@ -1,12 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
+import DataEntryList from "../pages/DataEntry/DataEntryList";
 
 function Index() {
   const navigate = useNavigate();
   return (
     <div>
-      {" "}
-      <div className="flex items-center justify-center w-full h-screen">
+      <Navbar />
+      <div className=" w-full h-screen">
         <div>
           <div className="text-sm">Welcome to</div>
           <div className="text-center text-blue-500">DMS</div>
@@ -19,6 +21,8 @@ function Index() {
           </button>
         </div>
       </div>
+
+      <DataEntryList />
     </div>
   );
 }
