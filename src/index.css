@@ -22,7 +22,7 @@
     @apply w-full text-sm   border-b-2 border-gray-400 outline-none  focus:border-amber-500;
   }
   .myLabel {
-    @apply block  text-gray-300 text-xs  mb-2;
+    @apply block  text-gray-500 text-xs  mb-2;
   }
   .myButton {
     @apply flex-shrink-0  rounded bg-amber-600 hover:bg-black text-sm focus:outline-none text-white py-2 px-8;
@@ -32,11 +32,15 @@
   }
 
   .mySelect {
-    @apply block w-full py-2 mt-2 bg-white border-b-2 border-gray-400 focus:border-amber-500   focus:outline-none;
+    @apply block w-full text-sm  bg-white border-b-2 border-gray-400 focus:border-amber-500   focus:outline-none;
   }
 
   .link {
     @apply p-2 flex  gap-6 items-center hover:bg-gray-100 text-gray-700   md:cursor-pointer cursor-default duration-300 font-medium;
+  }
+
+  .link-active {
+    @apply text-blue-600;
   }
   .active {
     @apply text-amber-600;

@@ -1,9 +1,11 @@
 import { Route, Routes } from "react-router-dom";
-import Index from "./layouts/Index";
 import DataEntryForm from "./pages/DataEntry/DataEntryForm";
 import DataEntryList from "./pages/DataEntry/DataEntryList";
 import DataEntryIndex from "./pages/DataEntry/DataEntryIndex";
-import Dashboard from "./layouts/Dashboard";
+import Index from "./pages/home/Index";
+import Dashboard from "./pages/home/Dashboard";
+import DataEntryFormIndex from "./pages/DataEntry/DataEntryFormIndex";
+import DataVoucherForm from "./pages/DataEntry/voucherType/DataVoucherForm";
 
 function App() {
   return (
@@ -14,7 +16,14 @@ function App() {
           <Route path="/data-entry" Component={DataEntryIndex}>
             <Route index Component={DataEntryList} />
 
-            <Route path="/data-entry/form" Component={DataEntryForm} />
+            <Route path="/data-entry/form" Component={DataEntryFormIndex}>
+              <Route index Component={DataEntryForm} />
+              <Route
+                exact
+                path="/data-entry/form/voucher"
+                Component={DataVoucherForm}
+              />
+            </Route>
           </Route>
         </Route>
       </Routes>

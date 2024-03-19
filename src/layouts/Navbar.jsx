@@ -38,7 +38,7 @@ function Navbar() {
                   activeClassName="active "
                   className={"link"}
                 >
-                  FAQ
+                  About
                 </NavLink>
               </li>
             </ul>

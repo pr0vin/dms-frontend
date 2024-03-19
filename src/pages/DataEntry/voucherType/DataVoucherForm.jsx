@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { ExpenseType, FileTypes, fiscalYears } from "../../jsons/Data";
-import { useNavigate } from "react-router-dom";
+import { ExpenseType, FileTypes, fiscalYears } from "../../../jsons/Data";
 
-function DataEntryForm() {
-  const navigate = useNavigate();
+function DataVoucherForm() {
   const [data, setData] = useState({
     fiscal_year: "",
     file_type: "",
@@ -85,11 +83,12 @@ function DataEntryForm() {
       fiscal_year: "",
       file_type: "",
       expense_type: "",
-      brach: "",
       reg_date: "",
       reg_no: "",
+      voucher_no: "",
+      voucher_date: "",
       room_no: "",
-      yark_no: "",
+      yark: "",
       caben_no: "",
       file_no: "",
       remarks: "",
@@ -105,42 +104,29 @@ function DataEntryForm() {
         <div className=" md:grid grid-cols-2  gap-3">
           <div className="w-full md:w-10/12 ">
             <div className="mb-5">
-              <label htmlFor="reg_date" className="myLabel">
-                Registration Date
+              <label htmlFor="voucher_no" className="myLabel">
+                Voucher No.
               </label>
 
               <input
-                id="reg_date"
                 type="text"
-                name="reg_date"
+                name="voucher_no"
                 onChange={handleInputChange}
-                value={data.reg_date}
+                value={data.voucher_no}
                 className="myInput"
               />
             </div>
+
             <div className="mb-5">
-              <label htmlFor="" className="myLabel">
-                Registration No.
+              <label htmlFor="voucher_date" className="myLabel">
+                voucher date
               </label>
 
               <input
                 type="text"
-                name="reg_no"
+                name="voucher_date"
+                value={data.voucher_date}
                 onChange={handleInputChange}
-                value={data.reg_no}
-                className="myInput"
-              />
-            </div>
-            <div className="mb-5">
-              <label htmlFor="branch" className="myLabel">
-                Branch
-              </label>
-
-              <input
-                type="text"
-                name="branch"
-                onChange={handleInputChange}
-                value={data.branch}
                 className="myInput"
               />
             </div>
@@ -371,23 +357,9 @@ function DataEntryForm() {
         </div>
 
         <div className=" md:flex justify-end  gap-10 my-16">
-          <button
-            type="reset"
-            onClick={() => setEmpty()}
-            className="myButtonOutline  px-16"
-          >
-            Reset
+          <button type="reset" className="myButtonOutline  px-16">
+            Clear
           </button>
-          <button
-            onClick={() => {
-              navigate(-1);
-              setEmpty();
-            }}
-            className="myButtonOutline  text-red-500 border-red-500 border hover:bg-red-500 hover:text-white px-16"
-          >
-            Cancel
-          </button>
-
           <button type="submit" className="myButton  px-16">
             Save
           </button>
@@ -397,4 +369,4 @@ function DataEntryForm() {
   );
 }
 
-export default DataEntryForm;
+export default DataVoucherForm;
