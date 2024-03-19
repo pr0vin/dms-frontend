@@ -11,13 +11,13 @@ function Navbar() {
   };
   return (
     <div className="max-w-screen-2xl mx-auto">
-      <div className="mx-3">
+      <div className="mx-3 p-3">
         <div className="flex justify-between items-center">
           <div>
             <h2 className="text-2xl font-bold px-5 text-primary">DMS </h2>
           </div>
-          <div>
-            <nav className="bg-white p-3 ">
+          <div className="md:block hidden">
+            <nav className="bg-white ">
               <ul className="flex  flex-row gap-3">
                 <li>
                   <NavLink
@@ -78,7 +78,7 @@ function Navbar() {
                 </li>
 
                 <li
-                  onClick={() => navigate(`/settings`)}
+                  onClick={() => navigate(`/dashboard/settings`)}
                   className="p-2 flex gap-3 hover:bg-gray-100"
                 >
                   <IoSettingsOutline size={18} />

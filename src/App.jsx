@@ -30,9 +30,12 @@ function App() {
           </Route>
         </Route>
 
-        <Route path="/settings" Component={SettingIndex}>
+        <Route path="/dashboard/settings" Component={SettingIndex}>
           <Route index Component={ProfileSetting} />
-          <Route path="/settings/company" Component={CompanySetting} />
+          <Route
+            path="/dashboard/settings/company"
+            Component={CompanySetting}
+          />
         </Route>
       </Routes>
     </>
