@@ -6,6 +6,9 @@ import Index from "./pages/home/Index";
 import Dashboard from "./pages/home/Dashboard";
 import DataEntryFormIndex from "./pages/DataEntry/DataEntryFormIndex";
 import DataVoucherForm from "./pages/DataEntry/voucherType/DataVoucherForm";
+import SettingIndex from "./pages/settings/SettingIndex";
+import ProfileSetting from "./pages/settings/ProfileSetting";
+import CompanySetting from "./pages/settings/CompanySetting";
 
 function App() {
   return (
@@ -25,6 +28,11 @@ function App() {
               />
             </Route>
           </Route>
+        </Route>
+
+        <Route path="/settings" Component={SettingIndex}>
+          <Route index Component={ProfileSetting} />
+          <Route path="/settings/company" Component={CompanySetting} />
         </Route>
       </Routes>
     </>
