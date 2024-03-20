@@ -17,7 +17,7 @@ import { useAuth } from "../context/AuthProvider";
 import { LuHome } from "react-icons/lu";
 const Sidebar = () => {
   let isTabletMid = useMediaQuery({ query: "(max-width: 768px)" });
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const sidebarRef = useRef();
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -47,7 +47,7 @@ const Sidebar = () => {
       }
     : {
         open: {
-          width: 0,
+          width: "16rem",
           transition: {
             damping: 40,
           },
@@ -60,45 +60,37 @@ const Sidebar = () => {
         },
       };
 
-  const settingLinks = [
-    {
-      name: "settings",
-      icon: IoSettingsOutline,
-      menus: ["profile", "company"],
-    },
-  ];
+  const settingLinks = {
+    name: "settings",
+    icon: IoSettingsOutline,
+    menus: ["profile", "company"],
+  };
 
   const configurations = [
     {
       name: "config",
       icon: GrDocumentConfig,
-      menus: ["fiscal year", "categories", "companies", "company user"],
+      menus: ["fiscal year", "file types", "branch"],
     },
   ];
 
   return (
     <>
-      <div
-        onClick={() => setIsOpen(false)}
-        className={`md:hidden fixed inset-0 max-h-screen  bg-black/50 ${
-          isOpen ? "block md:hidden z-[150]" : "hidden z-[90]"
-        } `}
-      ></div>
-
       <motion.div
         ref={sidebarRef}
         variants={sidebar_animation}
         initial={{ x: isTabletMid ? -250 : 0 }}
         animate={isOpen ? "open" : "closed"}
-        className={`md:hidden bg-slate-900 text-white flex-none shadow-xl ${
-          isOpen ? "z-[999]" : "z-[99]"
-        }  w-[16rem] max-w-[16rem] h-screen overflow-hidden md:relative fixed`}
+        className={`md:block hidden  bg-white text-gray-700 flex-none shadow-xl   w-[16rem] max-w-[16rem] h-[90vh] overflow-hidden md:relative fixed`}
       >
+        <div className="text-center p-5 ">
+          <span className="font-bold text-2xl text-primary">DMS</span>
+        </div>
         {/* menus */}
 
-        <div className="flex flex-col h-full mt-10 ">
+        <div className="flex flex-col h-full ">
           <ul className="whitespace-pre ps-2.5 text-[0.9rem] pb-3 flex flex-col gap-1 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 h-[80%] md:max-h-[78%] ">
-            <li>
+            {/* <li>
               <NavLink
                 className={({ isActive }) =>
                   isActive ? " link active " : "link"
@@ -119,19 +111,30 @@ const Sidebar = () => {
                 <IoDocumentTextOutline size={23} className="min-w-max" />
                 Data Entry
               </NavLink>
-            </li>
+            </li> */}
 
             {(isOpen || isTabletMid) && (
               <div className=" my-3 border-secondary">
                 <small className="pl-3  inline-block mb-2">Settings</small>
-                <div>
-                  {settingLinks.map((menu) => (
-                    <div key={menu.name} className="flex flex-col gap-1">
-                      {" "}
-                      <UserSubMenu data={menu} />
-                    </div>
+                <ul>
+                  {settingLinks.menus?.map((menu, i) => (
+                    <li key={i} className="pl-8">
+                      <NavLink
+                        to={`/dashboard/settings/${menu
+                          .split(` `)
+                          .join(`-`)
+                          .toLowerCase()}`}
+                        className={({ isActive }) =>
+                          isActive
+                            ? "link  active  capitalize "
+                            : "link  !bg-transparent capitalize"
+                        }
+                      >
+                        {menu}
+                      </NavLink>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             )}
 
@@ -159,15 +162,7 @@ const Sidebar = () => {
             </li>
           </ul>
         </div>
-
-        {/* second */}
       </motion.div>
-      <div
-        className="m-3 md:hidden block md:relative absolute z-[100] bg-white top-0 left-0  "
-        onClick={() => setIsOpen(true)}
-      >
-        <MdMenu size={25} />
-      </div>
     </>
   );
 };

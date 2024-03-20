@@ -10,6 +10,11 @@ import SettingIndex from "./pages/settings/SettingIndex";
 import ProfileSetting from "./pages/settings/ProfileSetting";
 import CompanySetting from "./pages/settings/CompanySetting";
 
+import FiscalYearIndex from "./pages/fiscal-years/FiscalYearIndex";
+import FiscalYearForm from "./pages/fiscal-years/FiscalYearForm";
+import FileTypeIndex from "./pages/file-types/FileTypeIndex";
+import BranchIndex from "./pages/branch/BranchIndex";
+
 function App() {
   return (
     <>
@@ -28,14 +33,43 @@ function App() {
               />
             </Route>
           </Route>
-        </Route>
 
-        <Route path="/dashboard/settings" Component={SettingIndex}>
-          <Route index Component={ProfileSetting} />
-          <Route
-            path="/dashboard/settings/company"
-            Component={CompanySetting}
-          />
+          <Route path="/dashboard/settings" Component={SettingIndex}>
+            <Route index Component={ProfileSetting} />
+            <Route
+              path="/dashboard/settings/company"
+              Component={CompanySetting}
+            />
+
+            <Route
+              path="/dashboard/settings/config/fiscal-year"
+              Component={FiscalYearIndex}
+            >
+              <Route
+                path="/dashboard/settings/config/fiscal-year/:id"
+                Component={FileTypeIndex}
+              />
+            </Route>
+            <Route
+              path="/dashboard/settings/config/file-types"
+              Component={FileTypeIndex}
+            >
+              <Route
+                path="/dashboard/settings/config/file-types/:id"
+                Component={FileTypeIndex}
+              />
+            </Route>
+
+            <Route
+              path="/dashboard/settings/config/branch"
+              Component={BranchIndex}
+            >
+              <Route
+                path="/dashboard/settings/config/branch/:id"
+                Component={BranchIndex}
+              />
+            </Route>
+          </Route>
         </Route>
       </Routes>
     </>

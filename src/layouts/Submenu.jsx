@@ -46,7 +46,7 @@ function Submenu({ data }) {
                     : "link !bg-transparent capitalize"
                 }
               >
-                {menu}{" "}
+                {menu}
               </NavLink>
             </li>
           ))}

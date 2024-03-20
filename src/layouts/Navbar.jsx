@@ -68,7 +68,10 @@ function Navbar() {
           </div> */}
 
             {open && (
-              <ul className="absolute text-start right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-10 cursor-pointer text-sm">
+              <ul
+                onClick={handleOpen}
+                className="absolute text-start right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-10 cursor-pointer text-sm"
+              >
                 <li className="text-start p-2 border-b">
                   <h6 className="font-bold  capitalize">Pravin </h6>
                   <small className="text-xs ">pravin@gmail.com</small>

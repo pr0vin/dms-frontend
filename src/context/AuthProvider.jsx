@@ -19,7 +19,7 @@ function AuthProvider({ children }) {
   const [fetchedUser, setFetchedUser] = useState({});
   const [allUsers, setAllUsers] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
+  const [isSuperAdmin, setIsSuperAdmin] = useState(true);
 
   const logOut = () => {
     try {
