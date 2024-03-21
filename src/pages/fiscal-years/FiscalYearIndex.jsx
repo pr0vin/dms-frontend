@@ -19,17 +19,18 @@ function FiscalYearIndex() {
   return (
     <>
       <div className="">
-        <div>
-          <Modal open={open} onClose={handleOpen}>
-            {open && (
-              <div className="w-[400px] min-h-[50vh]">
-                <FiscalYearForm handleOpen={handleOpen} />
-              </div>
-            )}
-          </Modal>
+        <div className="">
+          <div className="heading">
+            <h2>Fiscal Year</h2>
+            <small>fiscal years are listed here</small>
+          </div>
+
+          <div className="my-5">
+            <FiscalYearForm handleOpen={handleOpen} />
+          </div>
         </div>
 
-        <div className="  bg-white">
+        <div className="">
           <FiscalYearList handleOpen={handleOpen} open={open} />
         </div>
       </div>

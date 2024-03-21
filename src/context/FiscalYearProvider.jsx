@@ -19,6 +19,7 @@ function FiscalYearProvider({ children }) {
 
   const handleSubmit = async (data) => {
     try {
+      // console.log(data);
       const res = await axios.post(`/api/fiscal-years`, data);
       getFiscalYears();
       notifySuccess(res.data.message);

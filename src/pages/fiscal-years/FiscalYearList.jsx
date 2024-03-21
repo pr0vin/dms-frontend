@@ -71,122 +71,125 @@ function FiscalYearList({ handleOpen, open }) {
   };
 
   return (
-    <div>
-      <div className=" flex p-3  items-center justify-between gap-5 ">
-        <div className="hading gap-5 items-center heading">
+    <div className=" rounded-lg">
+      <div className=" flex p-3  items-center justify-between gap-5  ">
+        {/* <div className="hading gap-5 items-center heading">
           <h2 className="">आर्थिक वर्षहरू </h2>
-        </div>
-        <div className="flex gap-3">
+        </div> */}
+        {/* <div className="flex gap-3">
           {!makeChange && (
             <div>
               <button
                 onClick={handleMakeOrder}
-                className="flex myButtonOutline text-primary border-0  "
+                className="flex myButtonOutline bg-transparent text-primary border-0  "
               >
                 Manage Order
               </button>
             </div>
           )}
-          {!open && (
-            <button onClick={handleOpen} className="flex myButton ">
-              <BiPlus size={20} />
-              <span>नयाँ</span>
+        </div> */}
+      </div>
+
+      <div className="flex flex-col overflow-x-scroll ">
+        {/* <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8"> */}
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg bg-white">
+          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" className="px-6 py-4">
+                  सि.न.
+                </th>
+
+                <th scope="col" className="px-6 py-4">
+                  आर्थिक वर्ष
+                </th>
+                <th scope="col" className="px-6 py-4">
+                  सुरु मिति
+                </th>
+                <th scope="col" className="px-6 py-4">
+                  समाप्त मिति
+                </th>
+                <th scope="col" className="px-6 py-4"></th>
+                <th scope="col" className="px-6 py-4"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {orderedFiscalYears?.map(
+                ({ id, year, startDate, endDate, status }, i) => {
+                  // const sn = convertToNepaliUnicode(i + 1);
+                  return (
+                    <tr
+                      key={id}
+                      draggable
+                      onDragStart={(e) => handleDragStart(e, i)}
+                      onDragOver={(e) => handleDragOver(e, i)}
+                      onDragEnd={handleDragEnd}
+                    >
+                      <td className="whitespace-nowrap flex items-center justify-center py-4 font-medium">
+                        {makeChange ? (
+                          <span>
+                            <IoMoveSharp size={18} />
+                          </span>
+                        ) : (
+                          <span>{i + 1}</span>
+                        )}
+                      </td>
+                      <td className="whitespace-nowrap px-6 py-4">{year}</td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {startDate}
+                      </td>
+                      <td className="whitespace-nowrap px-6 py-4">{endDate}</td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {status == true && (
+                          <span className="text-green-600">Active</span>
+                        )}
+                      </td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        <div className="flex gap-2">
+                          <BiEdit
+                            onClick={() =>
+                              navigate(
+                                `/dashboard/settings/config/fiscal-year/${id}`
+                              )
+                            }
+                            className="text-blue-300"
+                            size={23}
+                          />
+                          <BiTrash
+                            onClick={() => {
+                              handleShow();
+                              setDeleteId(id);
+                            }}
+                            className="text-red-300"
+                            size={23}
+                          />
+                        </div>{" "}
+                      </td>
+                    </tr>
+                  );
+                }
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="flex gap-3">
+        {!makeChange && (
+          <div>
+            <button
+              onClick={handleMakeOrder}
+              className="flex myButtonOutline shadow-lg border-0  "
+            >
+              Manage Order
             </button>
-          )}
-        </div>
-      </div>
-
-      <div className="flex flex-col overflow-x-scroll   p-2">
-        <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-            <div className="overflow-hidden">
-              <table className="min-w-full min-h-[60vh] text-center text-sm font-light">
-                <thead className="font-medium border-b border-gray-50 ">
-                  <tr>
-                    <th scope="col" className="px-6 py-4">
-                      सि.न.
-                    </th>
-
-                    <th scope="col" className="px-6 py-4">
-                      आर्थिक वर्ष
-                    </th>
-                    <th scope="col" className="px-6 py-4">
-                      सुरु मिति
-                    </th>
-                    <th scope="col" className="px-6 py-4">
-                      समाप्त मिति
-                    </th>
-                    <th scope="col" className="px-6 py-4"></th>
-                    <th scope="col" className="px-6 py-4"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {orderedFiscalYears?.map(
-                    ({ id, year, startDate, endDate, status }, i) => {
-                      // const sn = convertToNepaliUnicode(i + 1);
-                      return (
-                        <tr
-                          key={id}
-                          draggable
-                          onDragStart={(e) => handleDragStart(e, i)}
-                          onDragOver={(e) => handleDragOver(e, i)}
-                          onDragEnd={handleDragEnd}
-                        >
-                          <td className="whitespace-nowrap flex items-center justify-center py-4 font-medium">
-                            {makeChange ? (
-                              <span>
-                                <IoMoveSharp size={18} />
-                              </span>
-                            ) : (
-                              <span>{i + 1}</span>
-                            )}
-                          </td>
-                          <td className="whitespace-nowrap px-6 py-4">
-                            {year}
-                          </td>
-                          <td className="whitespace-nowrap px-6 py-4">
-                            {startDate}
-                          </td>
-                          <td className="whitespace-nowrap px-6 py-4">
-                            {endDate}
-                          </td>
-                          <td className="whitespace-nowrap px-6 py-4">
-                            {status == true && (
-                              <span className="text-green-600">Active</span>
-                            )}
-                          </td>
-                          <td className="whitespace-nowrap px-6 py-4">
-                            <div className="flex gap-2">
-                              <BiEdit
-                                onClick={() =>
-                                  navigate(
-                                    `/dashboard/config/fiscal-year/${id}`
-                                  )
-                                }
-                                className="text-blue-300"
-                                size={23}
-                              />
-                              <BiTrash
-                                onClick={() => {
-                                  handleShow();
-                                  setDeleteId(id);
-                                }}
-                                className="text-red-300"
-                                size={23}
-                              />
-                            </div>{" "}
-                          </td>
-                        </tr>
-                      );
-                    }
-                  )}
-                </tbody>
-              </table>
-            </div>
           </div>
-        </div>
+        )}
       </div>
-
+      {/* </div> */}
+      {/* // </div> */}
+      {/* 
       {makeChange && (
         <div className="flex gap-3  px-3 mt-5">
           <button
@@ -205,7 +208,7 @@ function FiscalYearList({ handleOpen, open }) {
             Save Order
           </button>
         </div>
-      )}
+      )} */}
 
       <div>
         <DeleteModal

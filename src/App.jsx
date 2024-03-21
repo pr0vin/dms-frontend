@@ -51,11 +51,11 @@ function App() {
               />
             </Route>
             <Route
-              path="/dashboard/settings/config/file-types"
+              path="/dashboard/settings/config/file-categories"
               Component={FileTypeIndex}
             >
               <Route
-                path="/dashboard/settings/config/file-types/:id"
+                path="/dashboard/settings/config/file-categories/:id"
                 Component={FileTypeIndex}
               />
             </Route>

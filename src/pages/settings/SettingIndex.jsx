@@ -8,7 +8,7 @@ function SettingIndex() {
   const settingLinks = {
     name: "settings",
     icon: IoSettingsOutline,
-    menus: ["fiscal year", "file types", "branch"],
+    menus: ["fiscal year", "file categories", "branch"],
   };
   return (
     <div>
