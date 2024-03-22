@@ -1,23 +1,35 @@
 import React, { useState } from "react";
-import { ExpenseType, FileTypes, fiscalYears } from "../../jsons/Data";
-import { useNavigate } from "react-router-dom";
+import {
+  ExpenseType,
+  FileTypes,
+  fiscalYears,
+  Branches,
+} from "../../jsons/Data";
+import { useNavigate, useParams } from "react-router-dom";
+import Calendar from "@sbmdkl/nepali-datepicker-reactjs";
+import { useRegistrationEntry } from "../../context/RegistrationEntryProvider";
 
 function DataEntryForm() {
   const navigate = useNavigate();
-  const [data, setData] = useState({
-    fiscal_year: "",
-    file_type: "",
-    expense_type: "",
-    reg_date: "",
-    reg_no: "",
-    voucher_no: "",
-    room_no: "",
-    yark_no: "",
-    caben_no: "",
-    file_no: "",
-    remarks: "",
-    private: false,
-  });
+  const { id } = useParams();
+  const { handleSubmit, data, handleInputChange, handleDateCahange } =
+    useRegistrationEntry();
+  const [showCalender, setShowCalender] = useState(false);
+  // const [data, setData] = useState({
+  //   fiscal_year_id: "",
+  //   file_category_id: "",
+  //   branch_id: "",
+  //   expense_type: "",
+  //   reg_date: "",
+  //   ad_reg_date: "",
+  //   reg_no: "",
+  //   room_no: "",
+  //   yark_no: "",
+  //   caben_no: "",
+  //   file_no: "",
+  //   remarks: "",
+  //   private: false,
+  // });
   const [files, setFiles] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const MAX_FILE_SIZE = 10 * 1024 * 1024;
@@ -55,11 +67,23 @@ function DataEntryForm() {
     setFiles(newFiles);
   };
 
-  const handleInputChange = (e) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
+  // const handleInputChange = (e) => {
+  //   setData({
+  //     ...data,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+
+  // const handleDateCahange = ({ adDate, bsDate }) => {
+  //   setData({
+  //     ...data,
+  //     reg_date: bsDate,
+  //     ad_reg_date: adDate,
+  //   });
+  // };
+
+  const toggleCalender = () => {
+    setShowCalender((prev) => !prev);
   };
 
   const handleCheckBoxChange = (e) => {
@@ -69,23 +93,28 @@ function DataEntryForm() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSave = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    files.forEach((file, index) => {
-      formData.append(`file${index + 1}`, file);
-    });
 
-    console.log(formData);
+    const formData = new FormData();
+
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+    for (let i = 0; i < files.length; i++) {
+      formData.append(`files[]`, files[i]);
+    }
+
+    handleSubmit(formData);
   };
 
   const setEmpty = () => {
     setData({
       ...data,
-      fiscal_year: "",
-      file_type: "",
+      fiscal_year_id: "",
+      file_category_id: "",
       expense_type: "",
-      brach: "",
+      brach_id: "",
       reg_date: "",
       reg_no: "",
       room_no: "",
@@ -98,13 +127,13 @@ function DataEntryForm() {
 
   return (
     <div className=" w-full  ">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSave}>
         <div className="py-2 font-bold text-gray-400 text-lg mb-5">
           दर्ता विवरण
         </div>
         <div className=" md:grid grid-cols-2  gap-3">
           <div className="w-full md:w-10/12 ">
-            <div className="mb-5">
+            {/* <div className="mb-5">
               <label htmlFor="reg_date" className="myLabel">
                 Registration Date
               </label>
@@ -117,6 +146,50 @@ function DataEntryForm() {
                 value={data.reg_date}
                 className="myInput"
               />
+            </div> */}
+
+            {(showCalender || !id) && (
+              <div>
+                <div className="mb-2">
+                  <label className="myLabel" htmlFor="reg_date">
+                    Registration Date
+                  </label>
+
+                  <div>
+                    <Calendar
+                      className="myInput  "
+                      onChange={handleDateCahange}
+                      theme="deepdark"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+            <div className="md:flex items-center gap-3">
+              {showCalender && (
+                <label className="text-red-300 mb-3" onClick={toggleCalender}>
+                  cancel update
+                </label>
+              )}
+              <label>
+                {id && !showCalender && (
+                  <div className="cursor-pointer my-3">
+                    <label className="myLabel" htmlFor="startDate">
+                      Regristration date
+                    </label>
+                    <div className="text-sm  font-bold text-gray-600">
+                      {data.reg_date}
+                    </div>
+
+                    <small
+                      onClick={toggleCalender}
+                      className="italic  text-gray-300 hover:underline"
+                    >
+                      change
+                    </small>
+                  </div>
+                )}
+              </label>
             </div>
             <div className="mb-5">
               <label htmlFor="" className="myLabel">
@@ -131,33 +204,54 @@ function DataEntryForm() {
                 className="myInput"
               />
             </div>
-            <div className="mb-5">
+            {/* <div className="mb-5">
               <label htmlFor="branch" className="myLabel">
                 Branch
               </label>
 
               <input
                 type="text"
-                name="branch"
+                name="branch_id"
                 onChange={handleInputChange}
-                value={data.branch}
+                value={data.branch_id}
                 className="myInput"
               />
+            </div> */}
+            <div className="mb-5">
+              <label htmlFor="branch" className="myLabel">
+                Branch
+              </label>
+
+              <select
+                className="mySelect"
+                name="branch_id"
+                value={data.branch_id}
+                onChange={handleInputChange}
+                id="branch"
+              >
+                <option value="">Select Expense Type</option>
+
+                {Branches?.map(({ name, id }, i) => (
+                  <option key={i} value={id} className="capitalize">
+                    {name}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
           <div className="flex justify-end">
             <div className="md:w-10/12 w-full">
               <div className="mb-5">
-                <label htmlFor="fiscal_year" className="myLabel">
+                <label htmlFor="fiscal_year_id" className="myLabel">
                   Fiscal Year
                 </label>
 
                 <select
                   className="mySelect"
-                  name="fiscal_year"
-                  value={data.fiscal_year}
+                  name="fiscal_year_id"
+                  value={data.fiscal_year_id}
                   onChange={handleInputChange}
-                  id="fiscal_year"
+                  id="fiscal_year_id"
                 >
                   <option value="">Select Fiscal Years</option>
 
@@ -183,7 +277,7 @@ function DataEntryForm() {
                   <option value="">Select Expense Type</option>
 
                   {ExpenseType?.map(({ type, id }, i) => (
-                    <option key={i} value={id}>
+                    <option key={i} value={type} className="capitalize">
                       {type}
                     </option>
                   ))}
@@ -290,16 +384,16 @@ function DataEntryForm() {
           <div className="flex justify-end">
             <div className="md:w-10/12 w-full">
               <div className="mb-5">
-                <label htmlFor="file_type" className="myLabel">
-                  File Type
+                <label htmlFor="file_category_id" className="myLabel">
+                  File Category
                 </label>
 
                 <select
                   className="mySelect"
-                  name="file_type"
-                  value={data.file_type}
+                  name="file_category_id"
+                  value={data.file_category_id}
                   onChange={handleInputChange}
-                  id="file_type"
+                  id="file_category_id"
                 >
                   <option value="">Select File Type</option>
                   {FileTypes?.map(({ type, id }, i) => (
@@ -336,7 +430,7 @@ function DataEntryForm() {
                       <span>Upload a file</span>
                       <input
                         id="file-upload"
-                        name="file-upload"
+                        name="files[]"
                         type="file"
                         onChange={handleFileInputChange}
                         multiple
@@ -370,11 +464,14 @@ function DataEntryForm() {
           </div>
         </div>
 
-        <div className=" md:flex justify-end  gap-10 my-16">
+        <div className="my-10">
+          <button type="submit" className="myButton  px-10">
+            Save
+          </button>
           <button
             type="reset"
             onClick={() => setEmpty()}
-            className="myButtonOutline  px-16"
+            className="myButtonOutline  px-10"
           >
             Reset
           </button>
@@ -383,13 +480,9 @@ function DataEntryForm() {
               navigate(-1);
               setEmpty();
             }}
-            className="myButtonOutline  text-red-500 border-red-500 border hover:bg-red-500 hover:text-white px-16"
+            className="myButtonOutline  text-red-500 border-red-500 border hover:bg-red-500 hover:text-white px-10"
           >
             Cancel
-          </button>
-
-          <button type="submit" className="myButton  px-16">
-            Save
           </button>
         </div>
       </form>

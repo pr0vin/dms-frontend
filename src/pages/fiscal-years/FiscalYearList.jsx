@@ -9,7 +9,7 @@ import {
   convertToNepaliUnicode,
 } from "../../helpers/UnicodeToEnglish";
 import DeleteModal from "../../components/DeleteModal";
-function FiscalYearList({ handleOpen, open }) {
+function FiscalYearList() {
   const navigate = useNavigate();
   const { fiscalYears, handleDelete, handleSaveOrder } = useFiscalYear();
 
@@ -164,7 +164,7 @@ function FiscalYearList({ handleOpen, open }) {
                             className="text-red-300"
                             size={23}
                           />
-                        </div>{" "}
+                        </div>
                       </td>
                     </tr>
                   );

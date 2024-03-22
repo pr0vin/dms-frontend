@@ -13,20 +13,20 @@ const fiscalYears = [
     endDate: "2023/1/2",
     status: false,
   },
-  {
-    id: 3,
-    year: "2023/24",
-    startDate: "2023/1/1",
-    endDate: "2023/1/2",
-    status: false,
-  },
-  {
-    id: 4,
-    year: "2024/25",
-    startDate: "2023/1/1",
-    endDate: "2023/1/2",
-    status: false,
-  },
+  // {
+  //   id: 3,
+  //   year: "2023/24",
+  //   startDate: "2023/1/1",
+  //   endDate: "2023/1/2",
+  //   status: false,
+  // },
+  // {
+  //   id: 4,
+  //   year: "2024/25",
+  //   startDate: "2023/1/1",
+  //   endDate: "2023/1/2",
+  //   status: false,
+  // },
 ];
 
 const ExpenseType = [
@@ -65,4 +65,22 @@ const FileTypes = [
   },
 ];
 
-export { fiscalYears, ExpenseType, FileTypes };
+const Branches = [
+  {
+    id: 1,
+    name: "tikapur",
+    description: "nisart",
+  },
+  {
+    id: 2,
+    name: "Dhangadhi",
+    description: "sanghiya",
+  },
+  {
+    id: 3,
+    name: "Atatriya",
+    description: "current",
+  },
+];
+
+export { fiscalYears, ExpenseType, FileTypes, Branches };

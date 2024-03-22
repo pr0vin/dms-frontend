@@ -5,7 +5,7 @@ function DataEntryFormIndex() {
   const { pathname } = useLocation();
   return (
     <div>
-      <div className="p-5 w-full  md:w-10/12 mx-auto  ">
+      <div className="md:p-5 w-full  md:w-10/12 mx-auto  ">
         <div className="mb-5">
           <h2 className="font-bold text-2xl text-amber-500">Data Entry Form</h2>
           <p className="text-sm text-gray-600">Fill the form below</p>

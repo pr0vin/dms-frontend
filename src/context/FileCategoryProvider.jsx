@@ -52,7 +52,6 @@ function FileCategoryProvider({ children }) {
       const res = await axios.get(`/api/file-categories`);
       dispatch({ type: "ALL", payload: res.data.data });
       notifySuccess(res.data.message);
-      navigate(`/dashboard/settings/config/file-categories`);
     } catch (error) {
       notifyError(error.response.data.message);
     }
