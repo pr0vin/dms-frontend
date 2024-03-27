@@ -5,24 +5,24 @@ import React, {
   useReducer,
   useState,
 } from "react";
-import axios from "axios";
-import { notifySuccess } from "../helpers/ToastMessage";
 
-const RegistrationEntryContext = createContext();
+const voucherContext = createContext();
 
 const init = {
-  regEntries: [],
-  regEntry: {},
+  voucherEntries: [],
+  voucherEntry: {},
+  voucherEntryLoading: false,
 };
-function RegistrationEntryProvider({ children }) {
+
+function VoucherEntryProvider({ children }) {
   const [data, setData] = useState({
     fiscal_year_id: "",
     file_category_id: "",
     branch_id: "",
     expense_type: "",
-    reg_date: "",
-    ad_reg_date: "",
-    reg_no: "",
+    voucher_date: "",
+    ad_voucher_date: "",
+    voudher_no: "",
     room_no: "",
     yark_no: "",
     caben_no: "",
@@ -44,12 +44,11 @@ function RegistrationEntryProvider({ children }) {
       [e.target.name]: e.target.value,
     });
   };
-
   const [state, dispatch] = useReducer(reducer, init);
 
   const handleSubmit = async (data) => {
     try {
-      const res = await axios.post(`/api/entries`, data);
+      const res = await axios.post(`/api/voucher-entries`, data);
       notifySuccess(res.data.message);
     } catch (error) {
       console.log(error.response.data.message);
@@ -58,7 +57,7 @@ function RegistrationEntryProvider({ children }) {
 
   const handleUpdate = async (data, id) => {
     try {
-      const res = await axios.put(`/api/entries/${id}`, data);
+      const res = await axios.put(`/api/voucher-entries/${id}`, data);
       notifySuccess(res.data.message);
     } catch (error) {
       console.log(error.response.data.message);
@@ -66,7 +65,7 @@ function RegistrationEntryProvider({ children }) {
   };
   const handleDelete = async (id) => {
     try {
-      const res = await axios.delete(`/api/entries/${id}`);
+      const res = await axios.delete(`/api/voucher-entries/${id}`);
       notifySuccess(res.data.message);
     } catch (error) {
       console.log(error.response.data.message);
@@ -75,7 +74,7 @@ function RegistrationEntryProvider({ children }) {
 
   const getEntries = async () => {
     try {
-      const res = await axios.get(`/api/entries`, data);
+      const res = await axios.get(`/api/voucher-entries`, data);
       notifySuccess(res.data.message);
       dispatch({ type: "ALL", payload: res.data.data });
     } catch (error) {
@@ -88,38 +87,39 @@ function RegistrationEntryProvider({ children }) {
   }, []);
 
   return (
-    <RegistrationEntryContext.Provider
+    <voucherContext.Provider
       value={{
         ...state,
-        handleSubmit,
-        handleDateCahange,
-        handleInputChange,
-        handleDelete,
-        handleUpdate,
         data,
+        handleDateCahange,
+        handleDelete,
+        handleSubmit,
+        handleUpdate,
+        handleInputChange,
       }}
     >
       {children}
-    </RegistrationEntryContext.Provider>
+    </voucherContext.Provider>
   );
 }
 
-const useRegistrationEntry = () => {
-  return useContext(RegistrationEntryContext);
+const useVoucherEntry = () => {
+  return useContext(voucherContext);
 };
-export { RegistrationEntryProvider, useRegistrationEntry };
+
+export { VoucherEntryProvider, useVoucherEntry };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "ALL":
       return {
         ...state,
-        regEntries: action.payload,
+        voucherEntries: action.payload,
       };
     case "SINGLE":
       return {
         ...state,
-        regEntry: action.payload,
+        voucherEntry: action.payload,
       };
 
     default:

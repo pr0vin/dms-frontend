@@ -14,6 +14,7 @@ import FiscalYearIndex from "./pages/fiscal-years/FiscalYearIndex";
 import FiscalYearForm from "./pages/fiscal-years/FiscalYearForm";
 import FileTypeIndex from "./pages/file-types/FileTypeIndex";
 import BranchIndex from "./pages/branch/BranchIndex";
+import DataVoucherList from "./pages/DataEntry/voucherType/DataVoucherList";
 
 function App() {
   return (
@@ -23,12 +24,27 @@ function App() {
           <Route index Component={Dashboard} />
           <Route path="/data-entry" Component={DataEntryIndex}>
             <Route index Component={DataEntryList} />
+            <Route
+              path="/data-entry/voucher/list"
+              Component={DataVoucherList}
+            />
 
             <Route path="/data-entry/form" Component={DataEntryFormIndex}>
               <Route index Component={DataEntryForm} />
               <Route
                 exact
+                path="/data-entry/form/:regId"
+                Component={DataEntryForm}
+              />
+
+              <Route
+                exact
                 path="/data-entry/form/voucher"
+                Component={DataVoucherForm}
+              />
+              <Route
+                exact
+                path="/data-entry/form/voucher/:vId"
                 Component={DataVoucherForm}
               />
             </Route>

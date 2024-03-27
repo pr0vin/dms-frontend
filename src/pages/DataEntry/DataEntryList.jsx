@@ -10,12 +10,24 @@ function DataEntryList() {
   const handleDecrypt = async (fileId) => {
     try {
       const response = await axios.get(
-        `/api/registration-files/${fileId}/decrypt`
+        `/api/registration-files/${fileId}/decrypt`,
+        {
+          responseType: "blob",
+        }
       );
-      console.log(response.data);
+      console.log(response);
 
-      // Open the decrypted document in a new tab
-      window.open(response.data, "_blank");
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+
+      link.setAttribute("download", "download.pdf");
+      // link.setAttribute("download",);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // window.open(response.data, "_blank");
     } catch (error) {
       console.error("Error decrypting content:", error);
       // Handle error (e.g., display error message to the user)
@@ -29,6 +41,12 @@ function DataEntryList() {
         <p className="text-sm text-gray-600">Here is the list of files</p>
       </div>
       <div className="text-end my-3">
+        <button
+          className="myButtonOutline"
+          onClick={() => navigate(`/data-entry/voucher/list`)}
+        >
+          voucher
+        </button>
         <button
           className="myButton"
           onClick={() => navigate(`/data-entry/form`)}
@@ -87,6 +105,7 @@ function DataEntryList() {
             {regEntries?.map(
               (
                 {
+                  id,
                   reg_date,
                   reg_no,
                   file_no,
@@ -139,7 +158,7 @@ function DataEntryList() {
                   </td>
                   <td className="flex items-center px-6 py-4">
                     <a
-                      href="#"
+                      href={`/data-entry/form/${id}`}
                       className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                     >
                       Edit

@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import axios from "axios";
 import { FileCategoryProvider } from "./context/FileCategoryProvider.jsx";
 import { RegistrationEntryProvider } from "./context/RegistrationEntryProvider.jsx";
+import { VoucherEntryProvider } from "./context/VoucherEntryProvider.jsx";
 
 const API_URL = import.meta.env.VITE_API_URL;
 axios.defaults.baseURL = API_URL;
@@ -22,7 +23,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <FiscalYearProvider>
           <FileCategoryProvider>
             <RegistrationEntryProvider>
-              <App />
+              <VoucherEntryProvider>
+                <App />
+              </VoucherEntryProvider>
             </RegistrationEntryProvider>
           </FileCategoryProvider>
         </FiscalYearProvider>
