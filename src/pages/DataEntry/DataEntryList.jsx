@@ -7,7 +7,7 @@ function DataEntryList() {
   const navigate = useNavigate();
   const { regEntries } = useRegistrationEntry();
 
-  const handleDecrypt = async (fileId) => {
+  const handleDecrypt = async (fileId, fileName) => {
     try {
       const response = await axios.get(
         `/api/registration-files/${fileId}/decrypt`,
@@ -15,24 +15,37 @@ function DataEntryList() {
           responseType: "blob",
         }
       );
-      console.log(response);
-
       const url = window.URL.createObjectURL(new Blob([response.data]));
+
+      // Create a temporary anchor element
       const link = document.createElement("a");
       link.href = url;
-
-      link.setAttribute("download", "download.pdf");
-      // link.setAttribute("download",);
+      link.setAttribute("download", fileName); // Set download attribute to trigger download
       document.body.appendChild(link);
+
+      // Click the anchor element to initiate download
       link.click();
+
+      // Remove the anchor element from the DOM
       document.body.removeChild(link);
+      // console.log(response);
+
+      // const url = window.URL.createObjectURL(new Blob([response.data]));
+      // const link = document.createElement("a");
+      // link.href = url;
+
+      // link.setAttribute("download", "download.pdf");
+      // document.body.appendChild(link);
+      // link.click();
+      // document.body.removeChild(link);
 
       // window.open(response.data, "_blank");
     } catch (error) {
       console.error("Error decrypting content:", error);
-      // Handle error (e.g., display error message to the user)
     }
   };
+
+  console.log(regEntries);
 
   return (
     <div className="">
@@ -119,7 +132,7 @@ function DataEntryList() {
               ) => (
                 <tr
                   key={i}
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                  className="cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                 >
                   {/* <td className="w-4 p-4">
               <div className="flex items-center">
@@ -145,16 +158,28 @@ function DataEntryList() {
                   <td className="whitespace-pre px-6  py-4">{yark_no}</td>
                   <td className="whitespace-pre px-6  py-4">{file_no}</td>
                   <td className="whitespace-pre px-6  py-4">{remarks}</td>
-                  <td className="whitespace-pre px-6 py-4">
-                    {documents.map((document) => (
-                      <button
-                        key={document.id}
-                        onClick={() => handleDecrypt(document.id)}
-                        className="text-blue-600 dark:text-blue-500 hover:underline"
-                      >
-                        doc
-                      </button>
-                    ))}
+                  <td className="whitespace-pre px-6 py-4 group relative ">
+                    <span className=" hover:underline ">
+                      files({documents && documents.length})
+                    </span>
+
+                    <ul className="hidden group-hover:block absolute top-0 right-0 bg-white z-10 p-2 rounded shadow ">
+                      {documents.map((document, i) => (
+                        <li
+                          key={document.id}
+                          onClick={() =>
+                            handleDecrypt(document.id, document.file_name)
+                          }
+                          className="text-gray-400 p-1"
+                          download
+                        >
+                          <span>{i + 1}.</span>{" "}
+                          <span className=" hover:underline">
+                            {document.file_name}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
                   </td>
                   <td className="flex items-center px-6 py-4">
                     <a
