@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import axios from "axios";
 import { notifySuccess } from "../helpers/ToastMessage";
+import { useNavigate } from "react-router-dom";
 
 const RegistrationEntryContext = createContext();
 
@@ -15,6 +16,7 @@ const init = {
   regEntry: {},
 };
 function RegistrationEntryProvider({ children }) {
+  const navigate = useNavigate();
   const [data, setData] = useState({
     fiscal_year_id: "",
     file_category_id: "",
@@ -30,6 +32,7 @@ function RegistrationEntryProvider({ children }) {
     remarks: "",
     private: false,
   });
+
   const handleDateCahange = ({ adDate, bsDate }) => {
     setData({
       ...data,
@@ -45,12 +48,34 @@ function RegistrationEntryProvider({ children }) {
     });
   };
 
+  const setEmpty = () => {
+    setData({
+      ...data,
+      fiscal_year_id: "",
+      file_category_id: "",
+      branch_id: "",
+      expense_type: "",
+      reg_date: "",
+      ad_reg_date: "",
+      reg_no: "",
+      room_no: "",
+      yark_no: "",
+      caben_no: "",
+      file_no: "",
+      remarks: "",
+      private: false,
+    });
+  };
+
   const [state, dispatch] = useReducer(reducer, init);
 
   const handleSubmit = async (data) => {
     try {
       const res = await axios.post(`/api/entries`, data);
       notifySuccess(res.data.message);
+      setEmpty();
+      getEntries();
+      navigate(`/data-entry`);
     } catch (error) {
       console.log(error.response.data.message);
     }
