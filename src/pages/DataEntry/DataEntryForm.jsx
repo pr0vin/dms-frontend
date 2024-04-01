@@ -12,24 +12,23 @@ import { useRegistrationEntry } from "../../context/RegistrationEntryProvider";
 function DataEntryForm() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { handleSubmit, data, handleInputChange, handleDateCahange } =
-    useRegistrationEntry();
+  const { handleSubmit } = useRegistrationEntry();
   const [showCalender, setShowCalender] = useState(false);
-  // const [data, setData] = useState({
-  //   fiscal_year_id: "",
-  //   file_category_id: "",
-  //   branch_id: "",
-  //   expense_type: "",
-  //   reg_date: "",
-  //   ad_reg_date: "",
-  //   reg_no: "",
-  //   room_no: "",
-  //   yark_no: "",
-  //   caben_no: "",
-  //   file_no: "",
-  //   remarks: "",
-  //   private: false,
-  // });
+  const [data, setData] = useState({
+    fiscal_year_id: "",
+    file_category_id: "",
+    branch_id: "",
+    expense_type: "",
+    reg_date: "",
+    ad_reg_date: "",
+    reg_no: "",
+    room_no: "",
+    yark_no: "",
+    caben_no: "",
+    file_no: "",
+    remarks: "",
+    private: false,
+  });
   const [files, setFiles] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const MAX_FILE_SIZE = 10 * 1024 * 1024;
@@ -54,7 +53,10 @@ function DataEntryForm() {
     const oversizedFiles = newFiles.filter((file) => file.size > MAX_FILE_SIZE);
 
     if (oversizedFiles.length > 0) {
-      setErrorMessage("File size exceeds the maximum limit (10MB).");
+      console.log(oversizedFiles);
+      setErrorMessage(
+        `The File ${oversizedFiles[0].name} size exceeds the maximum limit (10MB).`
+      );
     } else {
       setErrorMessage("");
       setFiles([...files, ...allowedFiles]);
@@ -67,20 +69,20 @@ function DataEntryForm() {
     setFiles(newFiles);
   };
 
-  // const handleInputChange = (e) => {
-  //   setData({
-  //     ...data,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
+  const handleInputChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  // const handleDateCahange = ({ adDate, bsDate }) => {
-  //   setData({
-  //     ...data,
-  //     reg_date: bsDate,
-  //     ad_reg_date: adDate,
-  //   });
-  // };
+  const handleDateCahange = ({ adDate, bsDate }) => {
+    setData({
+      ...data,
+      reg_date: bsDate,
+      ad_reg_date: adDate,
+    });
+  };
 
   const toggleCalender = () => {
     setShowCalender((prev) => !prev);

@@ -17,35 +17,17 @@ function DataEntryList() {
       );
       const url = window.URL.createObjectURL(new Blob([response.data]));
 
-      // Create a temporary anchor element
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", fileName); // Set download attribute to trigger download
+      link.setAttribute("download", fileName);
+
       document.body.appendChild(link);
-
-      // Click the anchor element to initiate download
       link.click();
-
-      // Remove the anchor element from the DOM
       document.body.removeChild(link);
-      // console.log(response);
-
-      // const url = window.URL.createObjectURL(new Blob([response.data]));
-      // const link = document.createElement("a");
-      // link.href = url;
-
-      // link.setAttribute("download", "download.pdf");
-      // document.body.appendChild(link);
-      // link.click();
-      // document.body.removeChild(link);
-
-      // window.open(response.data, "_blank");
     } catch (error) {
       console.error("Error decrypting content:", error);
     }
   };
-
-  console.log(regEntries);
 
   return (
     <div className="">
@@ -64,7 +46,6 @@ function DataEntryList() {
           className="myButton"
           onClick={() => navigate(`/data-entry/form`)}
         >
-          {" "}
           Add new
         </button>
       </div>
@@ -134,18 +115,6 @@ function DataEntryList() {
                   key={i}
                   className="cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                 >
-                  {/* <td className="w-4 p-4">
-              <div className="flex items-center">
-                <input
-                  id="checkbox-table-search-1"
-                  type="checkbox"
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label for="checkbox-table-search-1" className="sr-only">
-                  checkbox
-                </label>
-              </div>
-            </td> */}
                   <th
                     scope="row"
                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -167,16 +136,20 @@ function DataEntryList() {
                       {documents.map((document, i) => (
                         <li
                           key={document.id}
-                          onClick={() =>
-                            handleDecrypt(document.id, document.file_name)
-                          }
                           className="text-gray-400 p-1"
                           download
                         >
-                          <span>{i + 1}.</span>{" "}
-                          <span className=" hover:underline">
-                            {document.file_name}
-                          </span>
+                          <div>
+                            <span>{i + 1}.</span>{" "}
+                            <span
+                              className=" hover:underline"
+                              onClick={() =>
+                                handleDecrypt(document.id, document.file_name)
+                              }
+                            >
+                              {document.file_name}
+                            </span>
+                          </div>
                         </li>
                       ))}
                     </ul>

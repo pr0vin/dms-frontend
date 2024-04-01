@@ -42,7 +42,7 @@ function Navbar() {
                 <li>
                   <NavLink
                     exact
-                    to="/faq"
+                    to="/about"
                     activeClassName="active "
                     className={"link"}
                   >
@@ -57,15 +57,6 @@ function Navbar() {
             <div onClick={handleOpen}>
               <LuUserCircle2 size={32} />
             </div>
-            {/* <div>
-            <h2 className="font-bold">Pravin Chaudhary</h2>
-            <div className="flex items-center">
-              <span className="border px-3 text-xs rounded-full">admin</span>
-              <span>
-                <IoChevronDownSharp size={16} />
-              </span>
-            </div>
-          </div> */}
 
             {open && (
               <ul
